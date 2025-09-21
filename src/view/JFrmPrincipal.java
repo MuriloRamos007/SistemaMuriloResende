@@ -166,6 +166,8 @@ public class JFrmPrincipal extends javax.swing.JFrame {
 
     private void jMnuPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnuPedidosActionPerformed
         // TODO add your handling code here:
+        JDlgFormasPagamento jDlgFormasPagamento = new JDlgFormasPagamento(this, true);
+        jDlgFormasPagamento.setVisible(true);
     }//GEN-LAST:event_jMnuPedidosActionPerformed
 
     private void jMnuVendasProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnuVendasProdutosActionPerformed
