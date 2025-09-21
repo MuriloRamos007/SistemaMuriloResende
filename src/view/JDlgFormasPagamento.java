@@ -7,6 +7,8 @@ package view;
 
 import javax.swing.JOptionPane;
 import tools.Util;
+import view.TelaPesquisaDialog;
+
 
 /**
  *
@@ -270,7 +272,8 @@ public class JDlgFormasPagamento extends javax.swing.JDialog {
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
         // TODO add your handling code here: 
-        Util.mensagem("Não implementado");
+        TelaPesquisaDialog pesquisa = new TelaPesquisaDialog(this, true);
+        pesquisa.setVisible(true);
 
     }//GEN-LAST:event_jBtnPesquisarActionPerformed
 
