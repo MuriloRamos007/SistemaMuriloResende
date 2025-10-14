@@ -2,7 +2,6 @@ package bean;
 // Generated 06/10/2025 07:56:37 by Hibernate Tools 4.3.1
 
 
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -32,10 +31,9 @@ public class TbVendas  implements java.io.Serializable {
      private TbFormasPagamento tbFormasPagamento;
      private TbUsuarios tbUsuarios;
      private Date dtVenda;
-     private BigDecimal total;
+     private double total;
      private String status;
      private String observacoes;
-     private Set tbVendasProdutoses = new HashSet(0);
 
     public TbVendas() {
     }
@@ -44,7 +42,7 @@ public class TbVendas  implements java.io.Serializable {
     public TbVendas(int idVenda) {
         this.idVenda = idVenda;
     }
-    public TbVendas(int idVenda, TbClientes tbClientes, TbFormasPagamento tbFormasPagamento, TbUsuarios tbUsuarios, Date dtVenda, BigDecimal total, String status, String observacoes, Set tbVendasProdutoses) {
+    public TbVendas(int idVenda, TbClientes tbClientes, TbFormasPagamento tbFormasPagamento, TbUsuarios tbUsuarios, Date dtVenda, double total, String status, String observacoes) {
        this.idVenda = idVenda;
        this.tbClientes = tbClientes;
        this.tbFormasPagamento = tbFormasPagamento;
@@ -53,7 +51,6 @@ public class TbVendas  implements java.io.Serializable {
        this.total = total;
        this.status = status;
        this.observacoes = observacoes;
-       this.tbVendasProdutoses = tbVendasProdutoses;
     }
    
      @Id 
@@ -110,11 +107,11 @@ public class TbVendas  implements java.io.Serializable {
 
     
     @Column(name="total", precision=10)
-    public BigDecimal getTotal() {
+    public double getTotal() {
         return this.total;
     }
     
-    public void setTotal(BigDecimal total) {
+    public void setTotal(double total) {
         this.total = total;
     }
 
@@ -136,15 +133,6 @@ public class TbVendas  implements java.io.Serializable {
     
     public void setObservacoes(String observacoes) {
         this.observacoes = observacoes;
-    }
-
-@OneToMany(fetch=FetchType.LAZY, mappedBy="tbVendas")
-    public Set getTbVendasProdutoses() {
-        return this.tbVendasProdutoses;
-    }
-    
-    public void setTbVendasProdutoses(Set tbVendasProdutoses) {
-        this.tbVendasProdutoses = tbVendasProdutoses;
     }
 
 

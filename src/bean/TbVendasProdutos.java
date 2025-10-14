@@ -2,7 +2,6 @@ package bean;
 // Generated 06/10/2025 07:56:37 by Hibernate Tools 4.3.1
 
 
-import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,9 +23,9 @@ public class TbVendasProdutos  implements java.io.Serializable {
      private int idVendasProdutos;
      private TbProdutos tbProdutos;
      private TbVendas tbVendas;
-     private Integer quantidade;
-     private BigDecimal valorUnitario;
-     private BigDecimal desconto;
+     private int quantidade;
+     private double valorUnitario;
+     private double desconto;
      private String observacoes;
 
     public TbVendasProdutos() {
@@ -36,7 +35,7 @@ public class TbVendasProdutos  implements java.io.Serializable {
     public TbVendasProdutos(int idVendasProdutos) {
         this.idVendasProdutos = idVendasProdutos;
     }
-    public TbVendasProdutos(int idVendasProdutos, TbProdutos tbProdutos, TbVendas tbVendas, Integer quantidade, BigDecimal valorUnitario, BigDecimal desconto, String observacoes) {
+    public TbVendasProdutos(int idVendasProdutos, TbProdutos tbProdutos, TbVendas tbVendas, int quantidade, double valorUnitario, double desconto, String observacoes) {
        this.idVendasProdutos = idVendasProdutos;
        this.tbProdutos = tbProdutos;
        this.tbVendas = tbVendas;
@@ -80,31 +79,31 @@ public class TbVendasProdutos  implements java.io.Serializable {
 
     
     @Column(name="quantidade")
-    public Integer getQuantidade() {
+    public int getQuantidade() {
         return this.quantidade;
     }
     
-    public void setQuantidade(Integer quantidade) {
+    public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
     }
 
     
     @Column(name="valor_unitario", precision=10)
-    public BigDecimal getValorUnitario() {
+    public double getValorUnitario() {
         return this.valorUnitario;
     }
     
-    public void setValorUnitario(BigDecimal valorUnitario) {
+    public void setValorUnitario(double valorUnitario) {
         this.valorUnitario = valorUnitario;
     }
 
     
     @Column(name="desconto", precision=10)
-    public BigDecimal getDesconto() {
+    public double getDesconto() {
         return this.desconto;
     }
     
-    public void setDesconto(BigDecimal desconto) {
+    public void setDesconto(double desconto) {
         this.desconto = desconto;
     }
 

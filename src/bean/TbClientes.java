@@ -41,7 +41,6 @@ public class TbClientes  implements java.io.Serializable {
      private String bairro;
      private String email;
      private String endereco;
-     private Set tbVendases = new HashSet(0);
 
     public TbClientes() {
     }
@@ -54,7 +53,7 @@ public class TbClientes  implements java.io.Serializable {
         this.ativo = ativo;
         this.estado = estado;
     }
-    public TbClientes(int idCliente, String nmCliente, String cpf, Date dtNascimento, String telefone, char ativo, String rg, String cep, String sexo, String observacoes, String cidade, String estado, String bairro, String email, String endereco, Set tbVendases) {
+    public TbClientes(int idCliente, String nmCliente, String cpf, Date dtNascimento, String telefone, char ativo, String rg, String cep, String sexo, String observacoes, String cidade, String estado, String bairro, String email, String endereco) {
        this.idCliente = idCliente;
        this.nmCliente = nmCliente;
        this.cpf = cpf;
@@ -70,7 +69,6 @@ public class TbClientes  implements java.io.Serializable {
        this.bairro = bairro;
        this.email = email;
        this.endereco = endereco;
-       this.tbVendases = tbVendases;
     }
    
      @Id 
@@ -223,15 +221,6 @@ public class TbClientes  implements java.io.Serializable {
     
     public void setEndereco(String endereco) {
         this.endereco = endereco;
-    }
-
-@OneToMany(fetch=FetchType.LAZY, mappedBy="tbClientes")
-    public Set getTbVendases() {
-        return this.tbVendases;
-    }
-    
-    public void setTbVendases(Set tbVendases) {
-        this.tbVendases = tbVendases;
     }
 
 

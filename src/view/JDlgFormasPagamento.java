@@ -8,6 +8,8 @@ package view;
 import javax.swing.JOptionPane;
 import tools.Util;
 import view.TelaPesquisaDialog;
+import bean.TbFormasPagamento;
+import dao.GenericDAO;
 
 
 /**
@@ -15,14 +17,39 @@ import view.TelaPesquisaDialog;
  * @author u10916731103
  */
 public class JDlgFormasPagamento extends javax.swing.JDialog {
+    private final GenericDAO<TbFormasPagamento> dao;
+    private boolean incluir;
 
     public JDlgFormasPagamento(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setTitle("Cadastro de Usuários");
         setLocationRelativeTo(null);
+        dao = new GenericDAO<>(TbFormasPagamento.class);
         Util.habilitar(false, jTxtCodigo, jChbAtivo, jTxtPorcentagemDaTaxa, jCboTipoDeTransacao, jFmtPrazoDeRecebimento, jTxtNumeroDeTaxas, jTxtDescricao, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+    }
+    
+    public TbFormasPagamento viewBean() {
+        TbFormasPagamento fp = new TbFormasPagamento();
+        fp.setIdFormaPagamento(Util.strToInt(jTxtCodigo.getText()));
+        fp.setDescricao(jTxtDescricao.getText());
+        fp.setTipoTransacao(jCboTipoDeTransacao.getSelectedItem().toString());
+        fp.setPrazoRecebimento(Util.strToInt(jFmtPrazoDeRecebimento.getText()));
+        fp.setTaxaPorcentagem(Util.strToDouble(jTxtPorcentagemDaTaxa.getText()));
+        fp.setParcelamento(jTxtNumeroDeTaxas.getText());
+        fp.setAtivo(jChbAtivo.isSelected() ? 'S' : 'N');
+        return fp;
+    }
+
+    public void beanView(TbFormasPagamento fp) {
+        jTxtCodigo.setText(Util.intToStr(fp.getIdFormaPagamento()));
+        jTxtDescricao.setText(fp.getDescricao());
+        jCboTipoDeTransacao.setSelectedItem(fp.getTipoTransacao());
+        jFmtPrazoDeRecebimento.setText(Util.intToStr(fp.getPrazoRecebimento()));
+        jTxtPorcentagemDaTaxa.setText(Util.doubleToStr(fp.getTaxaPorcentagem()));
+        jTxtNumeroDeTaxas.setText(fp.getParcelamento());
+        jChbAtivo.setSelected(fp.getAtivo() != null && fp.getAtivo() == 'S');
     }
 
     /**
@@ -34,6 +61,7 @@ public class JDlgFormasPagamento extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jTxtCodigo = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -55,6 +83,9 @@ public class JDlgFormasPagamento extends javax.swing.JDialog {
         jBtnPesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTxtDescricao = new javax.swing.JTextArea();
+        jBtnTradutor = new javax.swing.JButton();
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/tradutor.png"))); // NOI18N
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -143,23 +174,17 @@ public class JDlgFormasPagamento extends javax.swing.JDialog {
         jTxtDescricao.setRows(5);
         jScrollPane1.setViewportView(jTxtDescricao);
 
+        jBtnTradutor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/tradutor.png"))); // NOI18N
+        jBtnTradutor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnTradutorActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jBtnIncluir)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtnAlterar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtnExcluir)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtnConfirmar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtnCancelar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jBtnPesquisar)
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -190,6 +215,22 @@ public class JDlgFormasPagamento extends javax.swing.JDialog {
                     .addComponent(jLabel3)
                     .addComponent(jScrollPane1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jBtnIncluir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtnAlterar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtnExcluir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtnConfirmar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtnCancelar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBtnPesquisar))
+                    .addComponent(jBtnTradutor, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,7 +272,8 @@ public class JDlgFormasPagamento extends javax.swing.JDialog {
                     .addComponent(jBtnConfirmar)
                     .addComponent(jBtnCancelar)
                     .addComponent(jBtnPesquisar))
-                .addGap(60, 60, 60))
+                .addGap(28, 28, 28)
+                .addComponent(jBtnTradutor, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -243,6 +285,7 @@ public class JDlgFormasPagamento extends javax.swing.JDialog {
 
     private void jBtnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnIncluirActionPerformed
         // TODO add your handling code here:
+        incluir = true;
         Util.habilitar(true, jTxtCodigo, jChbAtivo, jTxtPorcentagemDaTaxa, jCboTipoDeTransacao, jFmtPrazoDeRecebimento, jTxtNumeroDeTaxas, jTxtDescricao, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
         Util.limpar(jTxtCodigo, jChbAtivo, jTxtPorcentagemDaTaxa, jCboTipoDeTransacao, jFmtPrazoDeRecebimento, jTxtNumeroDeTaxas, jTxtDescricao);
@@ -251,29 +294,47 @@ public class JDlgFormasPagamento extends javax.swing.JDialog {
 
     private void jBtnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAlterarActionPerformed
         // TODO add your handling code here:
+        incluir = false;
         Util.habilitar(true, jTxtCodigo, jChbAtivo, jTxtPorcentagemDaTaxa, jCboTipoDeTransacao, jFmtPrazoDeRecebimento, jTxtNumeroDeTaxas, jTxtDescricao, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(false, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
 
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
-        // TODO add your handling code here:
-        Util.perguntar("Deseja excluir o registro?");
+        if (Util.perguntar("Deseja excluir o registro?")) {
+            dao.delete(viewBean());
+            Util.limpar(jTxtCodigo, jChbAtivo, jTxtPorcentagemDaTaxa, jCboTipoDeTransacao,
+                    jFmtPrazoDeRecebimento, jTxtNumeroDeTaxas, jTxtDescricao);
+        }
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
-        Util.habilitar(false, jTxtCodigo, jChbAtivo, jTxtPorcentagemDaTaxa, jCboTipoDeTransacao, jFmtPrazoDeRecebimento, jTxtNumeroDeTaxas, jTxtDescricao, jBtnConfirmar, jBtnCancelar);
-        Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
+        TbFormasPagamento fp = viewBean();
+        if (incluir) {
+            dao.insert(fp);
+        } else {
+            dao.update(fp);
+        }
 
+        Util.habilitar(false, jTxtCodigo, jChbAtivo, jTxtPorcentagemDaTaxa, jCboTipoDeTransacao,
+                jFmtPrazoDeRecebimento, jTxtNumeroDeTaxas, jTxtDescricao, jBtnConfirmar, jBtnCancelar);
+        Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
 
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
-        // TODO add your handling code here: 
-        TelaPesquisaDialog pesquisa = new TelaPesquisaDialog(this, true);
-        pesquisa.setVisible(true);
+        String input = JOptionPane.showInputDialog(this, "Digite o ID da forma de pagamento:");
+        if (input != null && !input.trim().isEmpty()) {
+            int id = Util.strToInt(input);
+            TbFormasPagamento fp = dao.findById(id, "idFormaPagamento");
+            if (fp != null) {
+                beanView(fp);
+            } else {
+                JOptionPane.showMessageDialog(this, "Forma de pagamento não encontrada!");
+            }
+        }
 
     }//GEN-LAST:event_jBtnPesquisarActionPerformed
 
@@ -291,7 +352,63 @@ public class JDlgFormasPagamento extends javax.swing.JDialog {
     private void jCboTipoDeTransacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCboTipoDeTransacaoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jCboTipoDeTransacaoActionPerformed
+    
+    private boolean emIngles = false;
+    private void jBtnTradutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnTradutorActionPerformed
+        if (!emIngles) {
+            traduzirParaIngles();
+            emIngles = true;
+        } else {
+            traduzirParaPortugues();
+            emIngles = false;
+        }
+    }//GEN-LAST:event_jBtnTradutorActionPerformed
 
+    private void traduzirParaIngles() {
+        setTitle("Payment Methods Registration");
+
+        jLabel1.setText("Code");
+        jLabel2.setText("Tax percentage");
+        jLabel3.setText("Description");
+        jLabel5.setText("Receipt deadline");
+        jLabel6.setText("Number of installments");
+        jLabel7.setText("Transaction type");
+        jLabel8.setText("Active");
+
+        jBtnIncluir.setText("Add");
+        jBtnAlterar.setText("Edit");
+        jBtnExcluir.setText("Delete");
+        jBtnConfirmar.setText("Confirm");
+        jBtnCancelar.setText("Cancel");
+        jBtnPesquisar.setText("Search");
+
+        jCboTipoDeTransacao.setModel(new javax.swing.DefaultComboBoxModel<>(
+            new String[] { "pix", "credit card", "debit card", "cash", "bank transfer", "bank slip", "digital wallet", "automatic debit", "cryptocurrency" }
+        ));
+    }
+
+    private void traduzirParaPortugues() {
+        setTitle("Cadastro de Formas de Pagamento");
+
+        jLabel1.setText("Código");
+        jLabel2.setText("Porcentagem da taxa");
+        jLabel3.setText("Descrição");
+        jLabel5.setText("Prazo de recebimento");
+        jLabel6.setText("Número de taxas");
+        jLabel7.setText("Tipo de transação");
+        jLabel8.setText("Ativo");
+
+        jBtnIncluir.setText("Incluir");
+        jBtnAlterar.setText("Alterar");
+        jBtnExcluir.setText("Excluir");
+        jBtnConfirmar.setText("Confirmar");
+        jBtnCancelar.setText("Cancelar");
+        jBtnPesquisar.setText("Pesquisar");
+
+        jCboTipoDeTransacao.setModel(new javax.swing.DefaultComboBoxModel<>(
+            new String[] { "pix", "cartão de crédito", "cartão de débito", "dinheiro", "transferência", "boleto", "carteira digital", "débito automático", "criptomoeda" }
+        ));
+    }
     /**
      * @param args the command line arguments
      */
@@ -356,6 +473,8 @@ public class JDlgFormasPagamento extends javax.swing.JDialog {
     private javax.swing.JButton jBtnExcluir;
     private javax.swing.JButton jBtnIncluir;
     private javax.swing.JButton jBtnPesquisar;
+    private javax.swing.JButton jBtnTradutor;
+    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jCboTipoDeTransacao;
     private javax.swing.JCheckBox jChbAtivo;
     private javax.swing.JFormattedTextField jFmtPrazoDeRecebimento;

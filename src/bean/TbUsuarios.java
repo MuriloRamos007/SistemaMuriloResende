@@ -33,7 +33,6 @@ public class TbUsuarios  implements java.io.Serializable {
      private Date dtNascimento;
      private String senha;
      private Character ativo;
-     private Set tbVendases = new HashSet(0);
 
     public TbUsuarios() {
     }
@@ -45,7 +44,7 @@ public class TbUsuarios  implements java.io.Serializable {
         this.cpf = cpf;
         this.senha = senha;
     }
-    public TbUsuarios(int idUsuario, String nmUsuario, String cpf, String nivel, Date dtNascimento, String senha, Character ativo, Set tbVendases) {
+    public TbUsuarios(int idUsuario, String nmUsuario, String cpf, String nivel, Date dtNascimento, String senha, Character ativo) {
        this.idUsuario = idUsuario;
        this.nmUsuario = nmUsuario;
        this.cpf = cpf;
@@ -53,7 +52,6 @@ public class TbUsuarios  implements java.io.Serializable {
        this.dtNascimento = dtNascimento;
        this.senha = senha;
        this.ativo = ativo;
-       this.tbVendases = tbVendases;
     }
    
      @Id 
@@ -126,15 +124,6 @@ public class TbUsuarios  implements java.io.Serializable {
     
     public void setAtivo(Character ativo) {
         this.ativo = ativo;
-    }
-
-@OneToMany(fetch=FetchType.LAZY, mappedBy="tbUsuarios")
-    public Set getTbVendases() {
-        return this.tbVendases;
-    }
-    
-    public void setTbVendases(Set tbVendases) {
-        this.tbVendases = tbVendases;
     }
 
 

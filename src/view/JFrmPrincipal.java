@@ -28,6 +28,7 @@ public class JFrmPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jBtnTradutor = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMnuCadastros = new javax.swing.JMenu();
         jMnuClientes = new javax.swing.JMenuItem();
@@ -41,6 +42,13 @@ public class JFrmPrincipal extends javax.swing.JFrame {
         jMnuVendasProdutos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jBtnTradutor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/tradutor.png"))); // NOI18N
+        jBtnTradutor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnTradutorActionPerformed(evt);
+            }
+        });
 
         jMnuCadastros.setText("Cadastros");
 
@@ -127,11 +135,15 @@ public class JFrmPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 368, Short.MAX_VALUE)
+                .addComponent(jBtnTradutor, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 277, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 245, Short.MAX_VALUE)
+                .addComponent(jBtnTradutor, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -173,7 +185,45 @@ public class JFrmPrincipal extends javax.swing.JFrame {
     private void jMnuVendasProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMnuVendasProdutosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMnuVendasProdutosActionPerformed
+    private boolean emIngles = false;
+    private void jBtnTradutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnTradutorActionPerformed
+        if (!emIngles) {
+            traduzirParaIngles();
+            emIngles = true;
+        } else {
+            traduzirParaPortugues();
+            emIngles = false;
+        }
+    }//GEN-LAST:event_jBtnTradutorActionPerformed
+    private void traduzirParaIngles() {
+        setTitle("Snack Bar System");
 
+        jMnuCadastros.setText("Registers");
+        jMnuClientes.setText("Clients");
+        jMnuProdutos.setText("Products");
+        jMnuPedidos.setText("Payment Methods");
+        jMnuUsuarios.setText("Users");
+        jMnuSair.setText("Exit");
+
+        jMnuMovimento.setText("Transactions");
+        jMnuVendas.setText("Sales");
+        jMnuVendasProdutos.setText("Product Sales");
+    }
+
+    private void traduzirParaPortugues() {
+        setTitle("Sistema de lanchonete");
+
+        jMnuCadastros.setText("Cadastros");
+        jMnuClientes.setText("Clientes");
+        jMnuProdutos.setText("Produtos");
+        jMnuPedidos.setText("Formas de Pagamento");
+        jMnuUsuarios.setText("Usuários");
+        jMnuSair.setText("Sair");
+
+        jMnuMovimento.setText("Movimento");
+        jMnuVendas.setText("Vendas");
+        jMnuVendasProdutos.setText("Vendas de Produtos");
+    }
     /**
      * @param args the command line arguments
      */
@@ -211,6 +261,7 @@ public class JFrmPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBtnTradutor;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMnuCadastros;
     private javax.swing.JMenuItem jMnuClientes;

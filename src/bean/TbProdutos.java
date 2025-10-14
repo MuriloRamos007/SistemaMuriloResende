@@ -1,8 +1,6 @@
 package bean;
 // Generated 06/10/2025 07:56:37 by Hibernate Tools 4.3.1
 
-
-import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -25,11 +23,10 @@ public class TbProdutos  implements java.io.Serializable {
      private int idProduto;
      private String nmProduto;
      private String descricao;
-     private BigDecimal preco;
+     private double preco;
      private Character ativo;
      private String categoria;
      private String sabor;
-     private Set tbVendasProdutoses = new HashSet(0);
 
     public TbProdutos() {
     }
@@ -39,7 +36,7 @@ public class TbProdutos  implements java.io.Serializable {
         this.idProduto = idProduto;
         this.nmProduto = nmProduto;
     }
-    public TbProdutos(int idProduto, String nmProduto, String descricao, BigDecimal preco, Character ativo, String categoria, String sabor, Set tbVendasProdutoses) {
+    public TbProdutos(int idProduto, String nmProduto, String descricao, double preco, Character ativo, String categoria, String sabor) {
        this.idProduto = idProduto;
        this.nmProduto = nmProduto;
        this.descricao = descricao;
@@ -47,7 +44,6 @@ public class TbProdutos  implements java.io.Serializable {
        this.ativo = ativo;
        this.categoria = categoria;
        this.sabor = sabor;
-       this.tbVendasProdutoses = tbVendasProdutoses;
     }
    
      @Id 
@@ -84,11 +80,11 @@ public class TbProdutos  implements java.io.Serializable {
 
     
     @Column(name="preco", precision=10)
-    public BigDecimal getPreco() {
+    public double getPreco() {
         return this.preco;
     }
     
-    public void setPreco(BigDecimal preco) {
+    public void setPreco(double preco) {
         this.preco = preco;
     }
 
@@ -120,15 +116,6 @@ public class TbProdutos  implements java.io.Serializable {
     
     public void setSabor(String sabor) {
         this.sabor = sabor;
-    }
-
-@OneToMany(fetch=FetchType.LAZY, mappedBy="tbProdutos")
-    public Set getTbVendasProdutoses() {
-        return this.tbVendasProdutoses;
-    }
-    
-    public void setTbVendasProdutoses(Set tbVendasProdutoses) {
-        this.tbVendasProdutoses = tbVendasProdutoses;
     }
 
 

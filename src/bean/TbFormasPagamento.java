@@ -2,7 +2,6 @@ package bean;
 // Generated 06/10/2025 07:56:37 by Hibernate Tools 4.3.1
 
 
-import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -25,11 +24,10 @@ public class TbFormasPagamento  implements java.io.Serializable {
      private int idFormaPagamento;
      private String descricao;
      private String tipoTransacao;
-     private Integer prazoRecebimento;
-     private BigDecimal taxaPorcentagem;
+     private int prazoRecebimento;
+     private double taxaPorcentagem;
      private String parcelamento;
      private Character ativo;
-     private Set tbVendases = new HashSet(0);
 
     public TbFormasPagamento() {
     }
@@ -39,7 +37,7 @@ public class TbFormasPagamento  implements java.io.Serializable {
         this.idFormaPagamento = idFormaPagamento;
         this.descricao = descricao;
     }
-    public TbFormasPagamento(int idFormaPagamento, String descricao, String tipoTransacao, Integer prazoRecebimento, BigDecimal taxaPorcentagem, String parcelamento, Character ativo, Set tbVendases) {
+    public TbFormasPagamento(int idFormaPagamento, String descricao, String tipoTransacao, int prazoRecebimento, double taxaPorcentagem, String parcelamento, Character ativo) {
        this.idFormaPagamento = idFormaPagamento;
        this.descricao = descricao;
        this.tipoTransacao = tipoTransacao;
@@ -47,7 +45,6 @@ public class TbFormasPagamento  implements java.io.Serializable {
        this.taxaPorcentagem = taxaPorcentagem;
        this.parcelamento = parcelamento;
        this.ativo = ativo;
-       this.tbVendases = tbVendases;
     }
    
      @Id 
@@ -84,21 +81,21 @@ public class TbFormasPagamento  implements java.io.Serializable {
 
     
     @Column(name="prazo_recebimento")
-    public Integer getPrazoRecebimento() {
+    public int getPrazoRecebimento() {
         return this.prazoRecebimento;
     }
     
-    public void setPrazoRecebimento(Integer prazoRecebimento) {
+    public void setPrazoRecebimento(int prazoRecebimento) {
         this.prazoRecebimento = prazoRecebimento;
     }
 
     
     @Column(name="taxa_porcentagem", precision=5)
-    public BigDecimal getTaxaPorcentagem() {
+    public double getTaxaPorcentagem() {
         return this.taxaPorcentagem;
     }
     
-    public void setTaxaPorcentagem(BigDecimal taxaPorcentagem) {
+    public void setTaxaPorcentagem(double taxaPorcentagem) {
         this.taxaPorcentagem = taxaPorcentagem;
     }
 
@@ -120,15 +117,6 @@ public class TbFormasPagamento  implements java.io.Serializable {
     
     public void setAtivo(Character ativo) {
         this.ativo = ativo;
-    }
-
-@OneToMany(fetch=FetchType.LAZY, mappedBy="tbFormasPagamento")
-    public Set getTbVendases() {
-        return this.tbVendases;
-    }
-    
-    public void setTbVendases(Set tbVendases) {
-        this.tbVendases = tbVendases;
     }
 
 

@@ -7,21 +7,73 @@ package view;
 
 import javax.swing.JOptionPane;
 import tools.Util;
+import dao.GenericDAO;
+import bean.TbClientes;
+
 
 /**
  *
  * @author u10916731103
  */
 public class JDlgClientes extends javax.swing.JDialog {
-
+    private final GenericDAO<TbClientes> dao;
+    private boolean incluir;
     public JDlgClientes(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setTitle("Cadastro de Usuários");
         setLocationRelativeTo(null);
+        dao = new GenericDAO<>(TbClientes.class);
         Util.habilitar(false, jTxtCodigo, jChbAtivo, jTxtNome, jCboSexo, jFmtCpf, jFmtDataDeNascimento, jTxtEmail, jCboEstado, jFmtCep, jFmtTelefone, jTxtBairro, jTxtCidade, jTxtEndereco, jTxtObservacoes, jFmtRg, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
     }
+    
+    private TbClientes viewBean() {
+        TbClientes cliente = new TbClientes();
+
+        if (!jTxtCodigo.getText().trim().isEmpty()) {
+            cliente.setIdCliente(Integer.parseInt(jTxtCodigo.getText()));
+        }
+
+        cliente.setNmCliente(jTxtNome.getText());
+        cliente.setEmail(jTxtEmail.getText());
+        cliente.setEndereco(jTxtEndereco.getText());
+        cliente.setBairro(jTxtBairro.getText());
+        cliente.setCidade(jTxtCidade.getText());
+        cliente.setEstado((String) jCboEstado.getSelectedItem());
+        cliente.setCpf(jFmtCpf.getText());
+        cliente.setRg(jFmtRg.getText());
+        cliente.setCep(jFmtCep.getText());
+        cliente.setTelefone(jFmtTelefone.getText());
+        cliente.setSexo((String) jCboSexo.getSelectedItem());
+        cliente.setObservacoes(jTxtObservacoes.getText());
+
+        cliente.setDtNascimento(Util.strToDate(jFmtDataDeNascimento.getText()));
+
+        cliente.setAtivo(jChbAtivo.isSelected() ? 'S' : 'N');
+
+        return cliente;
+    }
+
+private void beanView(TbClientes cliente) {
+    jTxtCodigo.setText(String.valueOf(cliente.getIdCliente()));
+    jTxtNome.setText(cliente.getNmCliente());
+    jTxtEmail.setText(cliente.getEmail());
+    jTxtEndereco.setText(cliente.getEndereco());
+    jTxtBairro.setText(cliente.getBairro());
+    jTxtCidade.setText(cliente.getCidade());
+    jCboEstado.setSelectedItem(cliente.getEstado());
+    jFmtCpf.setText(cliente.getCpf());
+    jFmtRg.setText(cliente.getRg());
+    jFmtCep.setText(cliente.getCep());
+    jFmtTelefone.setText(cliente.getTelefone());
+    jCboSexo.setSelectedItem(cliente.getSexo());
+    jTxtObservacoes.setText(cliente.getObservacoes());
+
+    jFmtDataDeNascimento.setText(Util.dateToStr(cliente.getDtNascimento()));
+
+    jChbAtivo.setSelected(cliente.getAtivo() == 'S');
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -69,6 +121,7 @@ public class JDlgClientes extends javax.swing.JDialog {
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jFmtRg = new javax.swing.JFormattedTextField();
+        jBtnTradutor = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -204,6 +257,13 @@ public class JDlgClientes extends javax.swing.JDialog {
             }
         });
 
+        jBtnTradutor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/tradutor.png"))); // NOI18N
+        jBtnTradutor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnTradutorActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -220,11 +280,15 @@ public class JDlgClientes extends javax.swing.JDialog {
                 .addComponent(jBtnCancelar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jBtnPesquisar)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 6, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jFmtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jFmtCep, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel14))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jLabel9)
                         .addComponent(jTxtEndereco, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -255,7 +319,7 @@ public class JDlgClientes extends javax.swing.JDialog {
                                         .addComponent(jLabel13)
                                         .addGroup(layout.createSequentialGroup()
                                             .addComponent(jTxtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
                                             .addComponent(jChbAtivo)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                             .addComponent(jLabel8))))
@@ -273,19 +337,23 @@ public class JDlgClientes extends javax.swing.JDialog {
                                         .addComponent(jFmtDataDeNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jLabel5)
                                         .addComponent(jLabel11))
-                                    .addGap(70, 70, 70))))
+                                    .addGap(70, 80, Short.MAX_VALUE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addGap(0, 0, Short.MAX_VALUE)
+                                    .addComponent(jBtnTradutor, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addComponent(jTxtNome)
                         .addComponent(jTxtEmail)
-                        .addComponent(jScrollPane2))
-                    .addComponent(jLabel14))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jScrollPane2))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1))
+                    .addComponent(jBtnTradutor, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTxtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
@@ -386,13 +454,23 @@ public class JDlgClientes extends javax.swing.JDialog {
     }//GEN-LAST:event_jBtnAlterarActionPerformed
 
     private void jBtnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExcluirActionPerformed
-        // TODO add your handling code here:
-        Util.perguntar("Deseja excluir o registro?");
+        if (JOptionPane.showConfirmDialog(this, "Deseja excluir o cliente?", "Confirmação",
+                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            dao.delete(viewBean());
+            JOptionPane.showMessageDialog(this, "Cliente excluído com sucesso!");
+        }
     }//GEN-LAST:event_jBtnExcluirActionPerformed
 
 
     private void jBtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnConfirmarActionPerformed
         // TODO add your handling code here:
+        TbClientes cliente = viewBean();
+
+        if (incluir) {
+            dao.insert(cliente);
+        } else {
+            dao.update(cliente);
+        }
         Util.habilitar(false, jTxtCodigo, jChbAtivo, jTxtNome, jCboSexo, jFmtCpf, jFmtDataDeNascimento, jTxtEmail, jCboEstado, jFmtCep, jFmtTelefone, jTxtBairro, jTxtCidade, jTxtEndereco, jTxtObservacoes, jFmtRg, jBtnConfirmar, jBtnCancelar);
         Util.habilitar(true, jBtnIncluir, jBtnAlterar, jBtnExcluir, jBtnPesquisar);
 
@@ -400,9 +478,16 @@ public class JDlgClientes extends javax.swing.JDialog {
     }//GEN-LAST:event_jBtnConfirmarActionPerformed
 
     private void jBtnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPesquisarActionPerformed
-        // TODO add your handling code here: 
-        TelaPesquisaDialog pesquisa = new TelaPesquisaDialog(this, true);
-        pesquisa.setVisible(true);
+        String input = JOptionPane.showInputDialog(this, "Digite o ID da forma de pagamento:");
+        if (input != null && !input.trim().isEmpty()) {
+            int id = Util.strToInt(input);
+            TbClientes fp = dao.findById(id, "idCliente");
+            if (fp != null) {
+                beanView(fp);
+            } else {
+                JOptionPane.showMessageDialog(this, "Forma de pagamento não encontrada!");
+            }
+        }
 
     }//GEN-LAST:event_jBtnPesquisarActionPerformed
 
@@ -440,7 +525,71 @@ public class JDlgClientes extends javax.swing.JDialog {
     private void jFmtRgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFmtRgActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jFmtRgActionPerformed
+    
+    private boolean emIngles = false;
 
+    private void jBtnTradutorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnTradutorActionPerformed
+        if (!emIngles) {
+            traduzirParaIngles();
+            emIngles = true;
+        } else {
+            traduzirParaPortugues();
+            emIngles = false;
+        }
+    }//GEN-LAST:event_jBtnTradutorActionPerformed
+    private void traduzirParaIngles() {
+        setTitle("Clients Registration");
+
+        jLabel1.setText("Code");
+        jLabel2.setText("Name");
+        jLabel3.setText("Email");
+        jLabel4.setText("CPF");
+        jLabel5.setText("Phone");
+        jLabel6.setText("CEP");
+        jLabel7.setText("Sex");
+        jLabel8.setText("Active");
+        jLabel9.setText("Address");
+        jLabel10.setText("State");
+        jLabel11.setText("Birthdate");
+        jLabel12.setText("Neighborhood");
+        jLabel13.setText("City");
+        jLabel14.setText("Observations");
+        jLabel15.setText("RG");
+
+        jBtnIncluir.setText("Add");
+        jBtnAlterar.setText("Edit");
+        jBtnExcluir.setText("Delete");
+        jBtnConfirmar.setText("Confirm");
+        jBtnCancelar.setText("Cancel");
+        jBtnPesquisar.setText("Search");
+    }
+
+    private void traduzirParaPortugues() {
+        setTitle("Cadastro de Clientes");
+
+        jLabel1.setText("Código");
+        jLabel2.setText("Nome");
+        jLabel3.setText("Email");
+        jLabel4.setText("CPF");
+        jLabel5.setText("Telefone");
+        jLabel6.setText("CEP");
+        jLabel7.setText("Sexo");
+        jLabel8.setText("Ativo");
+        jLabel9.setText("Endereço");
+        jLabel10.setText("Estado");
+        jLabel11.setText("Data de Nascimento");
+        jLabel12.setText("Bairro");
+        jLabel13.setText("Cidade");
+        jLabel14.setText("Observações");
+        jLabel15.setText("RG");
+
+        jBtnIncluir.setText("Incluir");
+        jBtnAlterar.setText("Alterar");
+        jBtnExcluir.setText("Excluir");
+        jBtnConfirmar.setText("Confirmar");
+        jBtnCancelar.setText("Cancelar");
+        jBtnPesquisar.setText("Pesquisar");
+    }
     /**
      * @param args the command line arguments
      */
@@ -505,6 +654,7 @@ public class JDlgClientes extends javax.swing.JDialog {
     private javax.swing.JButton jBtnExcluir;
     private javax.swing.JButton jBtnIncluir;
     private javax.swing.JButton jBtnPesquisar;
+    private javax.swing.JButton jBtnTradutor;
     private javax.swing.JComboBox<String> jCboEstado;
     private javax.swing.JComboBox<String> jCboSexo;
     private javax.swing.JCheckBox jChbAtivo;

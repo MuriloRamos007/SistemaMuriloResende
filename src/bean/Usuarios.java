@@ -26,7 +26,7 @@ public class Usuarios  implements java.io.Serializable {
      private String cpf;
      private Date dataNascimento;
      private String senha;
-     private Integer nivel;
+     private int nivel;
      private String ativo;
 
     public Usuarios() {
@@ -38,7 +38,7 @@ public class Usuarios  implements java.io.Serializable {
         this.nome = nome;
         this.cpf = cpf;
     }
-    public Usuarios(int idusuarios, String nome, String apelido, String cpf, Date dataNascimento, String senha, Integer nivel, String ativo) {
+    public Usuarios(int idusuarios, String nome, String apelido, String cpf, Date dataNascimento, String senha, int nivel, String ativo) {
        this.idusuarios = idusuarios;
        this.nome = nome;
        this.apelido = apelido;
@@ -113,11 +113,11 @@ public class Usuarios  implements java.io.Serializable {
 
     
     @Column(name="nivel")
-    public Integer getNivel() {
+    public int getNivel() {
         return this.nivel;
     }
     
-    public void setNivel(Integer nivel) {
+    public void setNivel(int nivel) {
         this.nivel = nivel;
     }
 
